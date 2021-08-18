@@ -1,0 +1,110 @@
+Linguagem: Java
+
+Descrição - CHIP-8
+
+Memória: 4KB (4096 bytes)
+
+Divisão da Memória:
+
+0    0x1FF 0x200 0xF00      0xFFF
+|       |  |     |          |
++----------+-----+----------+
+| - 512b - | 96b | - 256b - |
+|[Reserved]|[Inte|[Display] |
+|[Fonts]   |rnal]|          |
++----------+-----+----------+
+
+Registradores:
+
+16 - 8 bits cada
+
+v0 - vf
+
+v0
+v1
+v2
+v3
+v4
+v5
+v6
+v7
+v8
+v9
+va
+vb
+vc
+vd
+ve
+vf - Usado para Flags, é ignorado no uso comum.
+
+---
+
+I (de Igreja) - 12 bits
+
+Stack
+
+Versão RCA 1802 - 48 bytes, 12 levels Nesting, 
+pode ter mais se quiser
+
+Timers
+
+CHIP-8 tem 2 deles: o Delay e o Sound.
+
+Delay: Usado para temporizar os eventos, o valor pode ser
+definido e lido.
+
+Sound: Usado para efeitos sonoros. Se o seu valor não for
+0, ele faz um beep.
+
+Eles contam regressivamente até 0 em uma frequência de
+60hz. (0.016666666666667 segundos)
+
+Input
+
+É feita com um teclado de 16 teclas, de 0 até F.
+
+8, 4, 6, 2 são usados para direções (equivalente a setas.)
+
+3 opcodes são usados pra detectar pressionamentos (veja opcodes)
+
+1 - Pula uma instrução se uma tecla específica foi PRESSIONADA.
+2 - Faz o mesmo se uma tecla específica NÃO foi pressionada
+3 - Espera até apertar, e guarda qual foi em um registrador
+de dados.
+
+Graphics and Sound
+
+Resolução Original: 64x32 pixels
+Cor: Monocromática (Preto e Branco)
+
+Os gráficos são desenhados SOMENTE por sprites, que são
+8 pixels de largura, e varia de 1 a 16 pixels de altura.
+
+Largura: 8 pixels
+Altura: De 1 a 16 pixels
+
+A tela são "XOR'd", ou seja, são brancos se o pixel corr-
+espondente é true, e preto se false.
+
+Pode ser feita a tela com um array de Boolean.
+
+O registrador Flag (VF) é definido para 1 se QUALQUER pixel
+da tela é alternado de 1 para 0 quando um sprite é desenhado,
+e retorna 0 se é de 0 para 1. Usado para colisões.
+
+Como dito, um beep é feito quando o valor do timer Sound
+não é zero.
+
+Opcodes
+
+CHIP-8 tem 35 opcodes de 2 bytes (1 word, palavra) e são big-endian.
+
+NNN: address
+NN: 8-bit constant
+N: 4-bit constant
+X and Y: 4-bit register identifier
+PC : Program Counter
+I : 16bit register (For memory address) (Similar to void pointer);
+VN: One of the 16 available variables. N may be 0 to F (hexadecimal);
+
+Lembre-se: um opcode é equivalente a uma instrução Assembly.
