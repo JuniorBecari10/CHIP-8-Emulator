@@ -12,6 +12,8 @@ public class Main implements Runnable {
     
     public Main() {
         screen = new Screen();
+        
+        Screen.writePixel(1, 1);
     }
     
     public synchronized void start() {
@@ -48,6 +50,20 @@ public class Main implements Runnable {
         g.fillRect(0, 0, Screen.WIDTH, Screen.HEIGHT);
         
         ///
+        
+        for (int x = 0; x < Screen.screen.length; x++) {
+            for (int y = 0; y < Screen.screen.length; y++) {
+                boolean b = Screen.screen[x = (y * Screen.WIDTH)];
+            
+                Color c = b ? Color.white : Color.black;
+                
+                System.out.println(x);
+                
+                screen.image.setRGB(x, y, Screen.colorToInt(c));
+            }
+        }
+        
+        //Screen.setToPixels();
         
         ///
         
@@ -91,5 +107,7 @@ public class Main implements Runnable {
                 timer += 1000;
             }
         }
+     
+     stop();
     }
 }
