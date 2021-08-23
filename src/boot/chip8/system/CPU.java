@@ -14,6 +14,10 @@ public class CPU {
     public static byte pc; // Program Counter - points to currently executing address
     
     public CPU() {
+        reset();
+    }
+    
+    public synchronized void reset() {
         ram = new byte[4096];
         regs = new byte[16];
         
@@ -24,5 +28,9 @@ public class CPU {
         
         sp = -1;
         pc = 0x200;
+    }
+    
+    public void loadRom(byte[] buffer) {
+        
     }
 }

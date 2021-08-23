@@ -20,7 +20,6 @@ public class Screen extends Canvas {
     public static BufferedImage image;
     
     public static boolean[] screen;
-    public static int[] pixels;
     
     public Screen() {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -28,12 +27,8 @@ public class Screen extends Canvas {
         createWindow(WIDTH, HEIGHT, SCALE, TITLE);
         
         screen = new boolean[WIDTH * HEIGHT];
-        pixels = new int[WIDTH * HEIGHT];
         
         Arrays.fill(screen, false);
-        Arrays.fill(pixels, 0);
-        
-        image.setRGB(0, 0, WIDTH, HEIGHT, pixels, 0, 0);
     }
     
     private synchronized void createWindow(int width, int height, int scale, String title) {
@@ -61,8 +56,8 @@ public class Screen extends Canvas {
         int b = c.getBlue();
         
         r = (r << 16) & 0x00FF0000;
-        b = (b << 16) & 0x00FF0000;
-        b = (b << 16) & 0x00FF0000;
+        b = (b << 16) & 0x0000FF00;
+        b = (b << 16) & 0x000000FF;
         
         return 0x00FF0000 | r | g | b;
     }

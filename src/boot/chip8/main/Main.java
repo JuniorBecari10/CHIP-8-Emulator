@@ -57,9 +57,9 @@ public class Main implements Runnable {
             
                 Color c = b ? Color.white : Color.black;
                 
-                System.out.println(x);
-                
-                screen.image.setRGB(x, y, Screen.colorToInt(c));
+                g.setColor(c);
+                g.fillRect(x, y, 1, 1);
+
             }
         }
         
